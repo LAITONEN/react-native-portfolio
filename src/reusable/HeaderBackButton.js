@@ -3,8 +3,22 @@ import { TouchableOpacity, Text } from 'react-native';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 
 
-export const HeaderBackButton = ({ onPress, title }) => {
+export const HeaderBackButton = ({ navigation, onPress, staticTitle }) => {
+		const { params, routeName } = navigation.state;
+		const { listHeaderTitle, useTitle, word } = params;
 		const { backIconStyle, buttonStyle, textStyle } = styles;
+		// text when navigation goes this way: List - Details - Edit
+		const backButtonText = () => {
+			switch (routeName) {
+				case 'edit':
+					return useTitle ? listHeaderTitle : word.term;
+
+				// for add' routes
+				default: 
+					return listHeaderTitle;
+			}	
+		};
+
 		return (
 			<TouchableOpacity 
 				onPress={onPress}
@@ -16,7 +30,7 @@ export const HeaderBackButton = ({ onPress, title }) => {
 					size={33}
 					style={backIconStyle}
 				/>
-				<Text style={textStyle}>{title}</Text>
+				<Text style={textStyle}>{staticTitle || backButtonText()}</Text>
 			</TouchableOpacity>
 		);
 };

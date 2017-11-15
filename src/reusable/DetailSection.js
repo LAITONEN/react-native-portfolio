@@ -1,18 +1,18 @@
 import React from 'react';
 import { Linking, Text, TouchableHighlight, View } from 'react-native';
 
-export const DetailSection = ({ link, text, title, overrideViewStyle }) => {
+export const DetailSection = ({ link, content, title, overrideViewStyle }) => {
 		const { textStyle, titleStyle, viewStyle } = styles;
 		if (link) {
 			return (
 				<View style={[viewStyle, overrideViewStyle]}>
 					<TouchableHighlight
-						onPress={(link) => Linking.openURL(link)}
+						onPress={() => Linking.openURL(link)}
 						underlayColor='#ffffff'
 					>	
 						<View> 
 						<Text style={titleStyle}>{title}</Text>
-						<Text style={textStyle}>{text}</Text>
+						<Text style={textStyle}>{content}</Text>
 						</View>
 					</TouchableHighlight>
 				</View>
@@ -21,7 +21,7 @@ export const DetailSection = ({ link, text, title, overrideViewStyle }) => {
 		return (
 			<View style={[viewStyle, overrideViewStyle]}>
 					<Text style={titleStyle}>{title}</Text>
-					<Text style={textStyle}>{text}</Text>
+					<Text style={textStyle}>{content}</Text>
 			</View>
 		);
 };

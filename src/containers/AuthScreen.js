@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { Dimensions, Keyboard, LayoutAnimation, View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Button, CardSection, ErrorText, InfoBox, Input, Spinner } from './reusable';
+import { Button, ErrorText, InfoBox, Input, Spinner } from '../reusable';
 import { loginUser, valueChanged } from '../actions';
 
 
 class AuthScreen extends Component {
+
+	constructor(props) { 
+	    super(props);
+	    this.state = { email: props.email, password: props.password };
+	}
 
 	componentWillMount() {
 		this.keyboardWillShowListener = Keyboard.addListener(
@@ -21,20 +26,11 @@ class AuthScreen extends Component {
 		this.keyboardWillHideListener.remove();
 	}
 
-	onEmailChange(email) {
-		// when user types in the e-mail field - call the valueChanged AC
-		this.props.valueChanged(email, 'email');
-	}
-
-	onPasswordChange(password) {
-		// when user types in the e-mail field - call the valueChanged AC
-		this.props.valueChanged(password, 'password');
-	}
-
 	// when user clicks on the "Log in" button:
 	onButtonPress() {
 		Keyboard.dismiss();
-		const { email, loginUser, navigation, password } = this.props;
+		const { loginUser, navigation } = this.props;
+		const { email, password } = this.state;
 		// call loginUser AC
 		loginUser({ email, password }, navigation);	
 	}
@@ -43,12 +39,11 @@ class AuthScreen extends Component {
 	// then configure layout animation on the next layout with the easeInEaseOut preset
 	keyboardWillShow(e) {
 		this.props.navigation.setParams({
-			dictionary: 'explanation', 
-			normalHeight: Dimensions.get('window').height * 0.83, 
+			searchInputAutoFocus: true,
+			dictionaryName: 'explanation', 
+			fullHeight: Dimensions.get('window').height * 0.83, 
 			predicate: '', 
-			showSearch: false, 
 			shortHeight: Dimensions.get('window').height * 0.9 - e.endCoordinates.height, 
-			viewHeight: Dimensions.get('window').height * 0.83, 
  		}); 
 		LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 	}
@@ -59,44 +54,39 @@ class AuthScreen extends Component {
 	}
 
 	render() {
-		
-		const { email, error, loading, password, user } = this.props;
-		// after "log in" button click, show spinner
-		if (loading) return <Spinner size="large" text="Logging" />;	
+		const { error, showSpinner, user } = this.props;
+		const { email, password } = this.state;
+
+		if (showSpinner) return <Spinner size="large" text="Logging" />;	
+
 		// after user logged in - show InfoBox with the relevant info
 		// this is added for the sake of a bug when the user gets navigated to AuthScreen
 		// so that instead of seeing a Log-in form, they are notified that they are still logged-in
 		else if (user) return <InfoBox />;
 		return (
-			<View style={styles.viewStyle}>
-			<CardSection
-				style={{ borderTopWidth: 1 }}
-			>
-				<Input
-				autoCapitalize='none'
-				autoFocus
-				label="Email"
-				onChangeText={this.onEmailChange.bind(this)}
-				placeholder="email@gmail.com"
-				value={email}
-				/>
-			</CardSection>
+				<View style={styles.viewStyle}>
+					<Input
+						autoCapitalize='none'
+						autoFocus
+						label="Email"
+						onChangeText={(value) => this.setState({ email: value })}
+						outerViewStyle={{ borderTopWidth: 1 }}
+						placeholder="email@gmail.com"
+						value={email}
+					/>
+					<Input
+						autoCapitalize='none'
+						label="Password"
+						onChangeText={(value) => this.setState({ password: value })}
+						placeholder="password"
+						secureTextEntry
+						value={password}
+					/>
 
-			<CardSection>
-				<Input
-				autoCapitalize='none'
-				label="Password"
-				onChangeText={this.onPasswordChange.bind(this)}
-				placeholder="password"
-				secureTextEntry
-				value={password}
-				/>
-			</CardSection>
+				<ErrorText message={error} />
 
-			<ErrorText message={error} />
-
-			<Button onPress={this.onButtonPress.bind(this)}>Log in</Button>
-			</View>
+				<Button onPress={this.onButtonPress.bind(this)}>Log in</Button>
+				</View>
 			);
 	}
 }
@@ -126,9 +116,9 @@ const styles = {
 };
 
 const mapStateToProps = ({ auth }) => {
-	const { email, error, loading, password, user } = auth; 
+	const { email, error, showSpinner, password, user } = auth; 
 
-	return { email, error, loading, password, user };
+	return { email, error, showSpinner, password, user };
 };
 
 

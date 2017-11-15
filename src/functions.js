@@ -30,7 +30,7 @@ function pickWords(dictionary, predicate) {
 		// find matches in word's props for each item in a predicate array
 		_.each(searchArray, (one) => { 
 			// if match exists - call 'add' function (below) and append the returned result to 'matchedIn'
-			if (wordValuesConcat.includes(one)) matchedIn += add(word, one); 
+			if (wordValuesConcat.includes(one)) matchedIn += add(word, one, predicate); 
 		});
 
 		// if there was at least 1 match
@@ -68,14 +68,14 @@ function pickWords(dictionary, predicate) {
 }
 
 
-function add(word, predicateItem) { 
+function add(word, predicateItem, fullPredicate) { 
 		let result = '';
 		// take key-value pair of each entry (prop) of a word
 		Object.entries(word).forEach(([key, value]) => {
 			if (typeof value === 'string' && key !== 'uid') {
 				const check = value.toLowerCase();
 				// if match exists in the current key - add it to the result string
-				if (key === 'term' && check.startsWith(predicateItem)) { 
+				if (key === 'term' && check.startsWith(fullPredicate)) { 
 					// '1' indicates that the value of a word starts with the predicate string
 					result += `1${key} `; 
 				}
@@ -180,7 +180,8 @@ export function length(obj) {
 
 // take object, turn into array and sort in ascending order
 export function toArrayAndSort(dictionary) {
-	// obj => arr
+	// obj => arr 
+	// turn to _.mapKeys?
 		const words = _.map(dictionary, (objProp, uid) => { 
 		return { ...objProp, uid };
 		});

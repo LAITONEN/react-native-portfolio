@@ -5,13 +5,13 @@ import {
 	VALUE_CHANGED,
 } from '../actions/types'; 
 
-const INITIAL_STATE = { email: '', error: '', loading: false, password: '', user: null };
+const INITIAL_STATE = { email: '', error: '', showSpinner: false, password: '', user: null };
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 
 		case LOGIN_USER:
-			return { ...state, loading: true }; 
+			return { ...state, showSpinner: true }; 
 
 		case VALUE_CHANGED:
 			return { ...state, [action.key]: action.value }; 
@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...INITIAL_STATE, user: action.payload }; 
 
 		case LOGIN_USER_FAIL:
-			return { ...state, error: 'Authentication Failed', loading: false }; 
+			return { ...state, error: 'Authentication Failed', showSpinner: false }; 
 
 		default:
 			return state;

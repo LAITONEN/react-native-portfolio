@@ -1,43 +1,58 @@
 import React from 'react';	
 import { Keyboard } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { NavigationActions, StackNavigator } from 'react-navigation';
 
-import Dictionary from '../components/ExplanationList';
-import WordDetails from '../components/WordDetails';
-import AddWord from '../components/AddWord';
-import EditWord from '../components/EditWord';
+import Dictionary from '../containers/ExplanationList';
+import WordDetails from '../containers/WordDetails';
+import AddWord from '../containers/AddWord';
+import EditWord from '../containers/EditWord';
 
-import { HeaderBackButton, ListNavHeader } from '../components/reusable';
+import { HeaderBackButton, ListNavHeader } from '../reusable';
 
-// navigationOptions of list route
-const list = ({ navigation }) => ListNavHeader({ navigation, title: 'English' }); 
+// save title in screenProps or state.params to make user-customizable?
+const list = ({ navigation }) => ListNavHeader({ navigation }); 
 
-// navigationOptions of add route
-const backToList = ({ navigation }) => ({
-			// required in order to dismiss the keyboard faster, 
-			// right after the button click, not when AddWord unmounts
+// required in order to dismiss the keyboard faster, 
+// right after the button click, not when AddWord unmounts
+const backButton = ({ navigation }) => ({
 			headerLeft: <HeaderBackButton
 							onPress={() => {
 								Keyboard.dismiss();
 								navigation.goBack();
 							}}
-							title='English'
+							navigation={navigation}
 						/>,
 });
 
+const details = ({ navigation }) => ({ 
+		headerTitle: navigation.state.params.word.term,
+		headerLeft: <HeaderBackButton
+						onPress={() => {
+							const params = { ...navigation.state.params, searchInputAutoFocus: true };
+							navigation.dispatch(NavigationActions.reset({ 
+									index: 0,
+									actions: [navigation.navigate('list', params)],
+								}));
+						}}
+						navigation={navigation}
+						staticTitle='English'
+					/>,
+}); 
+
 const routeConfig = {
       list: { screen: Dictionary, navigationOptions: list },
-      details: { screen: WordDetails },
-      add: { screen: AddWord, navigationOptions: backToList },
-      edit: { screen: EditWord } };
+      details: { screen: WordDetails, navigationOptions: details },
+      add: { screen: AddWord, navigationOptions: backButton },
+      edit: { screen: EditWord, navigationOptions: backButton } };
 
 const navigatorConfig = { 
-		// initialRouteParams requried for using search from the computer simulator
-				initialRouteParams: { dictionary: 'explanation' }, 
-				navigationOptions: {
-					tabBarLabel: 'ENG',
-				},
-			};
+	// dictionaryName requried for using search from the computer simulator
+	// useTitle - determines what string should be shown in the back button of 'edit' route
+			initialRouteParams: { dictionaryName: 'explanation', listHeaderTitle: 'English', useTitle: true }, 
+			navigationOptions: {
+				tabBarLabel: 'ENG',
+			},
+		};
 
 export const ExplanationStack = StackNavigator(routeConfig, navigatorConfig);
 

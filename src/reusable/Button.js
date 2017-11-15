@@ -6,7 +6,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import { CardSection } from './';
 
 
-const Button = ({ children, color = '#007aff', onPress, title, }) => {
+export const Button = ({ children, color = '#007aff', onPress, title, }) => {
 
 	const { buttonStyle, textStyle } = styles;
 
@@ -38,5 +38,3 @@ const styles = {
 		paddingBottom: 10
 	})
 };
-
-export { Button };

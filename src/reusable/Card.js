@@ -2,12 +2,13 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 
-const Card = ({ children, keyboardShouldPersistTaps, scrollEnabled, style }) => {
+export const Card = ({ children, keyboardShouldPersistTaps, scrollEnabled, style }) => {
 	return (
 		<ScrollView 
-		keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-		scrollEnabled={scrollEnabled}
-		style={[styles.containerStyle, style]}>
+			keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+			scrollEnabled={scrollEnabled}
+			style={[styles.containerStyle, style]}
+		>
 		{children}
 		</ScrollView>
 		);
@@ -30,5 +31,3 @@ const styles = {
 
 	}
 };
-
-export { Card };

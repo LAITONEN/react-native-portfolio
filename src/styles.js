@@ -2,7 +2,7 @@
 
 import { Dimensions } from 'react-native';
 
-const screenHeight = Dimensions.get('window').height;
+// const screenHeight = Dimensions.get('window').height;
 
 // All the styles used in Class Components (that used as React-Navigation's screen)
 
@@ -109,20 +109,26 @@ export const editWordStyles = {
 };
 
 export const listItemStyles = {
-	letterStyle: {
-		flex: 3,
-		fontSize: 22,
-		fontWeight: 'bold',
-		paddingLeft: 15
-	},
 	noteStyle: {
 		color: '#C7C7CD',
 		flex: 2,
 		fontSize: 12,
 	},
+	noteTitleStyle: {
+		color: '#C7C7CD',
+		flex: 2,
+		fontSize: 16,
+		left: 7,
+	},
 	sectionStyle: {
+		alignItems: 'center',
+		backgroundColor: '#FFF',
+		borderBottomWidth: 1,
 		borderColor: 'rgba(0, 122, 255, 0.3)',
-		alignItems: 'center'
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		padding: 5,
+		position: 'relative',
 	},
 	termStyle:
 	{
@@ -130,37 +136,32 @@ export const listItemStyles = {
 		fontSize: 18,
 		marginRight: 20,
 		paddingLeft: 15
-	}
-};
-
-export const sectionListStyle = (height) => ({
-		backgroundColor: 'white',
-		height,
-	});
-
-export const wordDetailsStyles = {
-	cardSectionStyle: {
-		backgroundColor: 'white',
-		flexDirection: 'column', 
-		flex: 1
-	},
-	pressedCardSectionStyle: {
-		backgroundColor: '#edeaea',
-		flexDirection: 'column', 
-		flex: 1
-	},
-	imageStyle: {
-		flex: 1,
-		height: 50,
-		width: 50
 	},
 	titleStyle: {
-		flex: 1, 
-		fontSize: 16,
-		fontWeight: 'bold'
+		flex: 3,
+		fontSize: 22,
+		fontWeight: 'bold',
+		paddingLeft: 15
 	},
-	textStyle: {
-		flex: 2,
-		fontSize: 16
-	}
+};
+
+export const wordDetailsStyles = {
+	containerStyle: {
+		borderColor: '#DDD',
+		borderBottomWidth: 0,
+		borderRadius: 2,
+		borderWidth: 1,
+		elevation: 2,
+		marginLeft: 5,
+		marginRight: 5,
+		marginTop: 5,
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.1,
+		shadowRadius: 2,
+	},
+	viewStyle: {
+		backgroundColor: 'white', 
+		height: Dimensions.get('window').height,
+	},
 };

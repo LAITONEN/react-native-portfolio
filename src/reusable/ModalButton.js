@@ -4,7 +4,7 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
 
-const ModalButton = ({ onPress, children }) => {
+export const ModalButton = ({ onPress, children }) => {
 
 	const { buttonStyle, textStyle } = styles;
 
@@ -35,5 +35,3 @@ const styles = {
 		paddingBottom: 10
 	}
 };
-
-export { ModalButton };

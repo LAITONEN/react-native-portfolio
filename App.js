@@ -9,8 +9,7 @@ export default class App extends React.Component {
 
   componentWillMount() {
     const config = { 
-        // place to paste the firebase config
-        // in order to make the app work
+        // paste the contents of your firebase config object here
     };
     firebase.initializeApp(config);
   }

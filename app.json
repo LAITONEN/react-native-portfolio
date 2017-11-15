@@ -3,7 +3,7 @@
     "name": "portfolio-for-wolt",
     "description": "An empty new project",
     "slug": "portfolio-for-wolt",
-    "privacy": "public",
+    "privacy": "unlisted",
     "sdkVersion": "22.0.0",
     "version": "1.0.0",
     "orientation": "portrait",

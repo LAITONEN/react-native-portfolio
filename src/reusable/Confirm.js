@@ -4,7 +4,7 @@ import { Modal, Text, View } from 'react-native';
 import { ModalButton } from './';
 import { CardSection } from './CardSection';
 
-const Confirm = ({ children, visible, onAccept, onDecline }) => { 
+export const Confirm = ({ children, visible, onAccept, onDecline }) => { 
 	// {children} is a Text that is written in between the this component tags in another component
 	const { cardSectionStyles, containerStyles, textStyles } = styles;
 	return (
@@ -38,7 +38,7 @@ const styles = {
 		backgroundColor: 'rgba(0,0,0,0.75)',
 		flex: 1,
 		justifyContent: 'center',
-		position: 'relative'
+
 	},
 
 	textStyles: {
@@ -48,5 +48,3 @@ const styles = {
 		textAlign: 'center'	
 	},
 };
-
-export { Confirm };

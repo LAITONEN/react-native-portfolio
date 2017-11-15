@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { Animated, Dimensions, LayoutAnimation, PanResponder, Platform, UIManager, View } from 'react-native';
+import { 
+	Animated, 
+	Dimensions, 
+	LayoutAnimation, 
+	PanResponder, 
+	Platform, 
+	UIManager, 
+	View } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH; 
 const SWIPE_OUT_SPEED = 250;
 
 // NOT IN USE YET
-class Swipe extends Component {
+export default class Swipe extends Component {
 	// if the user does not pass the prop from this statis var to this component, the default
 	// value mentioned here will be set to it
 	static defaultProps = {
@@ -137,6 +144,4 @@ const styles = {
 		width: SCREEN_WIDTH
 	}
 };
-
-export default Swipe;
 

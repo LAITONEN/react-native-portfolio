@@ -5,7 +5,7 @@ import { AsyncStorage } from 'react-native';*/
 import reducers from './reducers';
 
 
-// Redux store with the reducers, preloadedState and store enhancers
+
 const store = createStore(
 	reducers,
 	{},

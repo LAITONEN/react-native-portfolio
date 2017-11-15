@@ -4,22 +4,26 @@ import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import AuthScreen from '../components/AuthScreen';
+// import { MainDrawer } from './/MainNavigator';
+// import WelcomeScreen from '../screens/WelcomeScreen';
+import AuthScreen from '../containers/AuthScreen';
 import { DictionariesTabBar } from './DictionariesNavigator';
 
 // CONFIGS 
 
+
 export const AppNavigator = StackNavigator({
+      // welcome: { screen: WelcomeScreen }, // should be in the root navigator along with auth+dict stack as one screen
       auth: { screen: AuthScreen },
       dictionaries: { screen: DictionariesTabBar }
+      // main: { screen: MainDrawer } 
 	}, { headerMode: 'none' });
 
 // NAVIGATION
 
-// React-Navigation state integrated into Redux
 class AppWithNavigationState extends React.Component { 
 	render() {
-		StatusBar.setBarStyle('dark-content', true); // StatusBar settings
+		StatusBar.setBarStyle('dark-content', true);
 		const { dispatch, nav } = this.props;
 		return (
 			<AppNavigator

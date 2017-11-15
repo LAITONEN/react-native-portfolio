@@ -1,19 +1,18 @@
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import ClearIcon from 'react-native-vector-icons/Entypo';
 import SearchIcon from 'react-native-vector-icons/EvilIcons';
 
 // this.props here are the props that are passed from the parent component
-export class Search extends React.Component {
+export default class Search extends React.Component {
 
 	clearIconShow() {
-		if (this.props.predicate) {
+		if (this.props.navParams.predicate) {
 			return ( 
 				<ClearIcon 
 					name="circle-with-cross" 
 					size={18} 
 					color="#a3a3a8" 
-					ref="clearSearch" 
 					 // call function without binding so that the context of parent is used
 					onPress={() => this._onClearIconPress()}
 					style={styles.clearIcon} 
@@ -24,8 +23,8 @@ export class Search extends React.Component {
 	}
 
 	_onClearIconPress() {
-		if (!this.refs.searchInput.isFocused()) {
-			this.refs.searchInput.focus();
+		if (!this.searchInput.isFocused()) {
+			this.searchInput.focus();
 		}
 		this.props.onClearIconPress();
 	}
@@ -33,7 +32,11 @@ export class Search extends React.Component {
 	render() {
 		const { button, buttonText, buttonView, clearIcon, 
 			searchInput, searchInputView, searchView, } = styles;
-		const { predicate, onCancelPress, onChangeText, showSearch } = this.props;
+
+		const { onCancelPress, onChangeText, navParams } = this.props;
+
+		const { predicate, searchInputAutoFocus, showSearch } = navParams;
+
 		if (showSearch) {
 		return (
 	 			<View style={searchView}>
@@ -43,15 +46,15 @@ export class Search extends React.Component {
 							name="search" 
 							size={22} 
 							color="#C7C7CD" 
-							onPress={() => this.refs.searchInput.focus()} 
+							onPress={() => this.searchInput.focus()} 
 							style={clearIcon} 
 						/>
 						<TextInput
-							autoFocus
+							autoFocus={searchInputAutoFocus}
 							autoCorrect={false}
 							onChangeText={onChangeText}
 							returnKeyType='done' // name of an 'enter' key on the keyboard
-							ref='searchInput'
+							ref={search => { this.searchInput = search; }}
 							placeholder='Search'
 							style={searchInput}
 							value={predicate}

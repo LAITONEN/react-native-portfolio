@@ -1,35 +1,68 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Keyboard, Text, TouchableHighlight, View } from 'react-native';
 
-import { ListLine } from './reusable/';
-import { exists } from './reusable/Library';
+import { exists } from '../functions';
+import { listItemStyles } from '../styles';
 
-class ListItem extends Component {
+export default class ListItem extends React.Component {
 
-	onRowPress() {
-		const { word, navigation } = this.props;
-		// navigate to WordDetails component and pass current navigation params + current word object
+	onRowPress = () => {
+		const { navigation, word } = this.props;
+		// navigate to WordDetails screen and pass current navigation params
+		// + listHeaderTitle: '', so that BackButton on the 'Edit' page had the title of 'Details'
+		// + current word object with all the props
 		navigation.navigate('details', { ...navigation.state.params, word });
 		}
 
+	onLongPress = () => {
+		const { navigation, word } = this.props;
+
+		// navigate to EditWord screen and pass current navigation params + current word object 
+		// + headerTitle of List screen
+	    navigation.navigate('edit', { ...navigation.state.params, useTitle: true, word });
+	}
+
+	showNote() {
+		const { sectionHeader, word } = this.props;
+		const term = exists(() => word.term);
+		const match = exists(() => word.match);
+		const { noteStyle, noteTitleStyle } = listItemStyles;
+		const matchTitle = sectionHeader === 'Close Match' ? 'Matched in: ' : '';
+
+	    if (sectionHeader === 'Close Match') {
+			return (
+					// show matchTitle as a note if it's a section HEADER render
+					// or match.where number if it's a section ITEM render
+					<Text style={term ? noteStyle : noteTitleStyle}>
+						{match ? match.where : matchTitle}
+					</Text>
+				);
+		}
+		return;
+	}
+
 	render() {
-		const { header, word } = this.props;
+		const { sectionHeader, word } = this.props;
+		const { sectionStyle, termStyle, titleStyle } = listItemStyles;
+		const term = exists(() => word.term);
 		return (
-		<ListLine
-			sectionHeader={header}
-			match={exists(() => word.match)}
-			// show title of notes (grey text on the right in the list component)
-			// only if Section Header has a particular value
-			matchTitle={header === 'Close Match' ? 'Matched in: ' : ''} 
-			onPress={this.onRowPress.bind(this)}
-			 // "exists" verifies that every prop of the value that is passed exists
-			 // if any prop does not exist - returns undefiend instead of an error
-			 // in this case it verifies that word and word.term exist
-			term={exists(() => word.term)}
-		/>);
+			<TouchableHighlight
+				onLongPress={term ? this.onLongPress : null} // null for section header
+				onPress={term ? this.onRowPress : null}
+				underlayColor='#a8a8a8'
+			>          
+				<View style={sectionStyle}>
+					<Text 
+						style={term ? termStyle : titleStyle}
+					>
+					{term || sectionHeader}
+					</Text>
+					{this.showNote()}
+				</View> 
+			</TouchableHighlight> 
+		);
 	}
 }
-
-export default ListItem;
 
 
 

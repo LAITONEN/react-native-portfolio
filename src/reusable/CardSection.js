@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 
-const CardSection = (props) => {
+export const CardSection = (props) => {
 	// style on the right overwrites the properties of the style on the left or just add a new property
 	return (
 		<View style={[styles.containerStyle, props.style]}>
@@ -24,5 +24,3 @@ const styles = {
 		position: 'relative',
 	}
 };
-
-export { CardSection };

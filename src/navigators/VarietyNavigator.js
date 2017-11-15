@@ -1,39 +1,38 @@
 import React from 'react';	
-import { Dimensions, Keyboard } from 'react-native';
+import { Keyboard } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-import Dictionary from '../components/VarietyList';
-import WordDetails from '../components/WordDetails';
-import AddWord from '../components/AddWord';
-import EditWord from '../components/EditWord';
+import Dictionary from '../containers/VarietyList';
+import WordDetails from '../containers/WordDetails';
+import AddWord from '../containers/AddWord';
+import EditWord from '../containers/EditWord';
 
-import { HeaderBackButton, ListNavHeader } from '../components/reusable';
+import { HeaderBackButton, ListNavHeader } from '../reusable';
 
-// navigationOptions of list route
-const list = ({ navigation }) => ListNavHeader({ navigation, title: 'Synonyms' }); 
+// save title in screenProps or state.params to make user-customizable?
+const list = ({ navigation }) => ListNavHeader({ navigation }); 
 
-// navigationOptions of add route
-const add = ({ navigation }) => ({
-			// required in order to dismiss the keyboard faster, 
-			// right after the button click, not when AddWord unmounts
+// required in order to dismiss the keyboard faster, 
+// right after the button click, not when AddWord unmounts
+const backButton = ({ navigation }) => ({
 			headerLeft: <HeaderBackButton
 							onPress={() => {
 								Keyboard.dismiss();
 								navigation.goBack();
 							}}
-							title='Synonyms'
+							navigation={navigation}
 						/>,
 });
 
 const routeConfig = {
       list: { screen: Dictionary, navigationOptions: list },
       details: { screen: WordDetails },
-      add: { screen: AddWord, navigationOptions: add },
-      edit: { screen: EditWord } };
+      add: { screen: AddWord, navigationOptions: backButton },
+      edit: { screen: EditWord, navigationOptions: backButton }, };
 
 const navigatorConfig = { 
 	// initialRouteParams requried for using search from the computer simulator
-				initialRouteParams: { dictionary: 'variety' }, 
+				initialRouteParams: { dictionaryName: 'variety', listHeaderTitle: 'Synonyms', useTitle: true }, 
 				navigationOptions: {
 					tabBarLabel: 'SYN',
 				},

@@ -8,13 +8,13 @@ import { VarietyStack } from './VarietyNavigator';
 // CONFIGS
 
 const routeConfig = {
-      explanation: { screen: ExplanationStack }, // explanation is a React-Navigation's route
-      translation: { screen: TranslationStack }, // translation is a RN's route
-      variety: { screen: VarietyStack } // variety is a RN's route
+      explanation: { screen: ExplanationStack }, // explanation is a route
+      translation: { screen: TranslationStack }, // translation is a route
+      variety: { screen: VarietyStack } 
   };
 
 const navigatorConfig = {
-					initialRouteName: 'explanation', // what page to show when navigation loads
+					initialRouteName: 'explanation',  // what page to show when navigation loads
 					tabBarOptions: {
 						labelStyle: {
 							fontSize: 16,
@@ -24,6 +24,10 @@ const navigatorConfig = {
 					 		height: Dimensions.get('window').height * 0.07
 					 	},
 					},
+/*					navigationOptions: {
+						drawerIcon: (<Icon name="book" size={25} />),
+						drawerLabel: 'Dictionaries'
+						}*/
 					};
 
 
