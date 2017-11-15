@@ -67,7 +67,7 @@ function pickWords(dictionary, predicate) {
 	return filteredWords; 
 }
 
-
+// runs once for each word in a string through all of the word props
 function add(word, predicateItem, fullPredicate) { 
 		let result = '';
 		// take key-value pair of each entry (prop) of a word
@@ -78,9 +78,11 @@ function add(word, predicateItem, fullPredicate) {
 				if (key === 'term' && check.startsWith(fullPredicate)) { 
 					// '1' indicates that the value of a word starts with the predicate string
 					result += `1${key} `; 
+					return result; // only one match of each predicateItem should be counted
 				}
 				else if (check.includes(predicateItem)) {
 					result += `${key} `;
+					return result;
 				}
 			}
 		});	

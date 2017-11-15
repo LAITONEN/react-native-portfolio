@@ -1,6 +1,6 @@
 import React from 'react';	
 import { Keyboard } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { NavigationActions, StackNavigator } from 'react-navigation';
 
 import Dictionary from '../containers/TranslationList';
 import WordDetails from '../containers/WordDetails';
@@ -24,9 +24,24 @@ const backButton = ({ navigation }) => ({
 						/>,
 });
 
+const details = ({ navigation }) => ({ 
+		headerTitle: navigation.state.params.word.term,
+		headerLeft: <HeaderBackButton
+						onPress={() => {
+							const params = { ...navigation.state.params, searchInputAutoFocus: true };
+							navigation.dispatch(NavigationActions.reset({ 
+									index: 0,
+									actions: [navigation.navigate('list', params)],
+								}));
+						}}
+						navigation={navigation}
+						staticTitle='English'
+					/>,
+}); 
+
 const routeConfig = {
       list: { screen: Dictionary, navigationOptions: list },
-      details: { screen: WordDetails },
+      details: { screen: WordDetails, navigationOptions: details },
       add: { screen: AddWord, navigationOptions: backButton },
       edit: { screen: EditWord, navigationOptions: backButton }, };
 
