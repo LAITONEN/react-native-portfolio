@@ -38,7 +38,10 @@ class WordDetails extends Component {
 		if (this.state.showSpinner) return <Spinner size="large" text='Deleting' />;	
 		return (
 				<ScrollView style={viewStyle}>	
-					<Card style={containerStyle}>
+					<Card 
+						showsVerticalScrollIndicator={false}
+						style={containerStyle}
+					>
 						<DetailSection 
 							link={`http://www.ldoceonline.com/dictionary/${term}`}
 							content={definitions}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';	
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -64,12 +64,13 @@ class AddWord extends Component {
 		return (	
 			<KeyboardAwareScrollView
 				enableResetScrollToCoords={false} // persists the position of the view after keyboard hides
-				keyboardShouldPersistTaps={'handled'} // enables button clicks when keyboard is up
+				keyboardShouldPersistTaps={'always'} // enables button clicks when keyboard is up
 				ref='scroll'
 				style={viewStyle(screenHeight)}
 			>
 			<Card 
 			keyboardShouldPersistTaps={'always'}
+			showsVerticalScrollIndicator={false}
 			style={containerStyle}>
 					<Input
 						autoFocus

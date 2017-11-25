@@ -88,7 +88,7 @@ class ExplanationList extends React.Component {
 		//console.log('listner', this.keyboardWillShowListener);
 		const { sections, database, navigation } = this.props;
 		const { screenHeight } = this.state;
-
+		
 		// show ActivityIndicator while the component is not ready to be presented
 		if (this.state.showSpinner) return <Spinner size="large" text='Loading' />;
 

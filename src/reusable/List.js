@@ -47,7 +47,6 @@ class List extends React.Component {
 				            renderSectionHeader={(item) => this.renderLine('section', item)}
 				            sections={sections}
 				            keyExtractor={(item) => item.uid}
-				            // allow ListItem to capture presses when keyboard is up
 				            keyboardShouldPersistTaps={'always'} 
 			          	/>
 					</KeyboardAvoidingView>
@@ -57,7 +56,7 @@ class List extends React.Component {
 };
 
 
-const style = (height, paddingTop) => ({
+const style = (height) => ({
 		backgroundColor: 'white',
 		height
 	});

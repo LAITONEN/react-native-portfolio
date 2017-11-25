@@ -8,7 +8,7 @@ import reducers from './reducers';
 
 const store = createStore(
 	reducers,
-	{},
+	{ auth: { email: 'Relightrogue@gmail.com', password: 'qwerty' } },
 	compose(applyMiddleware(ReduxThunk))
 );
 

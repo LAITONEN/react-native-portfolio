@@ -6,7 +6,10 @@ import { View } from 'react-native';
 export const CardSection = (props) => {
 	// style on the right overwrites the properties of the style on the left or just add a new property
 	return (
-		<View style={[styles.containerStyle, props.style]}>
+		<View 
+			onPress={props.onPress}
+			style={[styles.containerStyle, props.style]}
+		>
 		{props.children}
 		</View>
 		);

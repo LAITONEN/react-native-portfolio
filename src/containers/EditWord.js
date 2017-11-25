@@ -51,7 +51,7 @@ class EditWord extends Component {
 		return (
 			<KeyboardAwareScrollView 
 				enableResetScrollToCoords={false}
-				keyboardShouldPersistTaps={'handled'}
+				keyboardShouldPersistTaps={'always'}
 				ref='scroll'
 				style={viewHeight(screenHeight)} 
 			>

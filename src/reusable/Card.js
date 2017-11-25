@@ -2,11 +2,18 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 
-export const Card = ({ children, keyboardShouldPersistTaps, scrollEnabled, style }) => {
+export const Card = ({ 
+					children, 
+					keyboardShouldPersistTaps, 
+					scrollEnabled, 
+					showsVerticalScrollIndicator,
+					style 
+				}) => {
 	return (
 		<ScrollView 
-			keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+			keyboardShouldPersistTaps={keyboardShouldPersistTaps || 'always'}
 			scrollEnabled={scrollEnabled}
+			showsVerticalScrollIndicator={showsVerticalScrollIndicator}
 			style={[styles.containerStyle, style]}
 		>
 		{children}
